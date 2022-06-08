@@ -1,0 +1,135 @@
+
+GET http://127.0.0.1:8000/api/sms HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|yXsAxRjDRcK2kpx2VYtpiPC52m0ZIVYLJmYyp5Ty
+
+###
+POST http://127.0.0.1:8000/api/admin/register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 3|ZkcHc5hmk0ASJcrcISR4bThwFAzcBz3FpoO93MBl
+
+{
+    "name": "Abduljawad Ibraheem Narumah",
+    "phone_number": "07066352444",
+    "email": "jawadrumah@sgmail.com",
+    "password": "password",
+    "password_confirmation": "password",
+    "gender": "Male",
+    "dob": "2022-06-06",
+    "group_id": "1"
+}
+
+###
+POST  http://127.0.0.1:8000/api/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "super@demo.com",
+    "password": "password"
+}
+
+###
+POST http://127.0.0.1:8000/api/logout HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|6pApueDorzpf7eA7yNWoLBvpPTweD9OodOPxmcBX
+
+###
+GET http://127.0.0.1:8000/api/admins HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|uXIQpwkjCVl3v6gbfCIPzGZ6jAHz2CIb8SC0xNVN
+
+###
+
+GET http://127.0.0.1:8000/api/admin/birthdays HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|gLK3tW7mPVkQakLhZPsvJiBSqsPQuaBfupfXdMD4
+
+###
+GET http://127.0.0.1:8000/api/admin/users-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 10|Zk1IIrhhaa4JKsCbBoO65v8TKwjuXuu9veQjXFrB
+
+###
+GET http://127.0.0.1:8000/api/admin/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 10|Zk1IIrhhaa4JKsCbBoO65v8TKwjuXuu9veQjXFrB
+
+###
+DELETE http://127.0.0.1:8000/api/admin/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|qZ8BFl5uIQD6DL6bhgzPy631E2B1FEwmsEvSw5Kf
+
+###
+POST http://127.0.0.1:8000/api/admin/make-admin HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 10|Zk1IIrhhaa4JKsCbBoO65v8TKwjuXuu9veQjXFrB
+
+{
+    "group_id": 1,
+    "profile_id": 1
+}
+
+###
+GET http://127.0.0.1:8000/api/users HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|KG6BxqwVW8rkhhsMfUBvzv07DP2LWdAwp1dcvm2C
+
+###
+POST http://127.0.0.1:8000/api/user/register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|KG6BxqwVW8rkhhsMfUBvzv07DP2LWdAwp1dcvm2C
+
+{
+    "name": "Abduljawad Ibraheem Narumah",
+    "phone_number": "07066352444",
+    "email": "jawassadssrussmah@gmail.com",
+    "gender": "Male",
+    "dob": "2022-06-06"
+}
+
+###
+GET http://127.0.0.1:8000/api/user/birthdays HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|zxjmliF4bIC3n1mPUAFVDsCEDCFwwJg7dXpnek3L
+###
+POST http://127.0.0.1:8000/api/user/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|KG6BxqwVW8rkhhsMfUBvzv07DP2LWdAwp1dcvm2C
+
+###
+POST http://127.0.0.1:8000/api/admin/store-group HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|KG6BxqwVW8rkhhsMfUBvzv07DP2LWdAwp1dcvm2C
+
+{
+    "group_name": "Jay Group",
+    "profile_id": 2
+}
+
+###
+GET http://127.0.0.1:8000/api/admin/group/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|5ykrrC2kkXh73ON00Q9zFYNc0nXD8hd3yZrhJafY
+
+###
+POST http://127.0.0.1:8000/api/admin/group/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|5ykrrC2kkXh73ON00Q9zFYNc0nXD8hd3yZrhJafY
+
