@@ -19,6 +19,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Class AWS
+    |--------------------------------------------------------------------------
+    |
+    | This register AWS service provider.
+    |
+    */
+
+    'providers' => array(
+        // ...
+        Aws\Laravel\AwsServiceProvider::class,
+    ),
+
+    'aliases' => array(
+        // ...
+       'AWS' => Aws\Laravel\AwsFacade::class,
+    ),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
@@ -211,5 +231,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+
 
 ];

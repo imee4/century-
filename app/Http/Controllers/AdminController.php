@@ -8,6 +8,7 @@ use \Illuminate\Support\Facades\Log;
 use \App\Models\Group;
 use \App\Models\Profile;
 use \App\Models\User;
+use \App\Mail\SendMail;
 
 class AdminController extends Controller
 {
@@ -19,41 +20,117 @@ class AdminController extends Controller
         return response()->json($admins, 200);
     }
 
-    function usersCount()
+    function store(Request $request)
+    {
+        try{
+        $details = 'Krunal';
+        Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+
+            Log::info("Email Sent Successfully!!!");
+        } catch (\Throwable $e) {
+            throw $e;
+        }
+        $rules=$request->validate([
+            'name' => 'required|min:3|max:200',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'phone_number' => 'required|min:11|max:13',
+            'gender' => 'min:4|max:20',
+            'dob' => 'required|min:5',
+        ]);
+
+        $rules['password'] = bcrypt($request->password);
+        //$rules['name'] = ucwords($request->name);
+
+        $profile = Profile::create($rules);
+
+        // if(!$request->password =="")
+        // {
+
+            $user = User::create([
+                'email' => $profile->email,
+                'password' => bcrypt($request->password),
+                'user_type_id' => 2,
+                'profile_id' => $profile->id
+            ]);
+
+            $id = $request->group_id;
+            Log::info($id);
+            $group = Group::findOrFail($id);
+            $group->admin_id = $user->id;
+
+            $group->save();
+
+            $details = [
+                'tittle' => 'My Tittle',
+                // 'id' => $request->profile_id
+            ];
+
+            //Log::debug($details);
+
+            try {
+                //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+
+                $details = 'Krunal';
+            Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+
+                Log::info("Email Sent Successfully!!!");
+            } catch (\Throwable $e) {
+                throw $e;
+            }
+
+            return response()->json([
+                'profile' => $profile,
+                'user' => $user,
+                'group' =>$group
+            ], 201);
+      //  }
+      //  return response()->json($profile, 201);
+    }
+
+    function count()
     {
         $count=User::where('is_active', true)->count();
 
         return response()->json($count, 200);
     }
 
-    function Count()
+    function profileCount()
     {
-        $count=User::where('is_active', true)->count();
+        $count=Profile::where('is_active', true)->count();
 
         return response()->json($count, 200);
     }
 
-    public function createAdmin(Request $request)
+    function createadmin(Request $request)
     {
-        Log::alert("jay");
         $rules=$request->validate([
             'group_id' => 'required',
-            'profile_id' =>'required'
+            'admin_id' =>'required',
+            //'email' => 'required|email',
+            'password' => 'required|min:8|max:30',
         ]);
 
         //$rules['group_name'] = ucwords($request->group_name);
-        //$id = $rules['group_id'];
+
         $profile_id = $rules['profile_id'];
 
-        $group = Group::findOrFail($request->id);
-        Log::alert($group);
-       $dmin = $group->update([
-                'profile_id' => $profile->id
+        $profile = Profile::findOrFail($profile_id);
+
+        $user = User::create([
+            'profile_id' => $rules['profile_id'],
+            'email' => $profile->profile->email,
+            'password' => bcrypt($rules['password']),
         ]);
 
-        return response()->json($admin, 201);
-    }
+        $group = Group::findOrFail($request->id);
 
+       $group->admin_id = $user->id;
+
+       $group->save();
+
+        return response()->json($group, 201);
+    }
 
     function show(Request $request)
     {

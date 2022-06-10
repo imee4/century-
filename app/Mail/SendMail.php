@@ -7,10 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class BirthdayMail extends Mailable
+class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $details;
 
     /**

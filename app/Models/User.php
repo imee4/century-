@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \App\Models\UserType;
-use \App\Models\User;
 
 class User extends Authenticatable
 {
@@ -47,7 +46,7 @@ class User extends Authenticatable
     ];
 
     protected $with = [
-        'profile'
+        'profile',
     ];
 
     function userType()

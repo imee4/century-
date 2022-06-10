@@ -21,7 +21,7 @@ class UserFactory extends Factory
     {
         return [
             'user_type_id' => 2,
-            'profile_id' => Profile::inRandomOrder()->first(),
+            'profile_id' => 2,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),

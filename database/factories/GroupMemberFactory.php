@@ -19,8 +19,8 @@ class GroupMemberFactory extends Factory
     public function definition()
     {
         return [
-            'group_id' => Group::inRandomOrder()->first(),
-            'profile_id' => Profile::inRandomOrder()->first(),
+            'group_id' => 2,
+            'profile_id' => 2
         ];
     }
 }

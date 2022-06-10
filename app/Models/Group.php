@@ -15,6 +15,10 @@ class Group extends Model
         'group_name'
     ];
 
+    protected $with = [
+        'user',
+    ];
+
     function user()
     {
         $this->belongsTo(User::class, 'admin_id','id');

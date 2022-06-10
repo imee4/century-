@@ -4,21 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Group;
+use \Illuminate\Support\Facades\Log;
 
 class GroupController extends Controller
 {
     function index()
     {
-        $groups = Group::all();
+        $groups = Group::where('is_active', true)->get();
 
         return response()->json($groups, 201);
     }
 
-    function register(Request $request)
+    function count()
+    {
+        $groups = Group::where('is_active', true)->count();
+
+        return response()->json($groups, 201);
+    }
+
+    function store(Request $request)
     {
         $rules=$request->validate([
             'group_name' => 'required|min:3|max:250',
-            'profile_id' => 'min:1'
+            'admin_id' => 'required|min:1'
         ]);
 
         $group = Group::create($rules);
@@ -39,9 +47,11 @@ class GroupController extends Controller
         $id = $request->id;
         $grp = Group::findOrFail($id);
 
-        $group = $grp->update( ['is_active' => false]);
+       // $grp->update( ['is_active' => false]);
+        $grp->is_active = false;
+        $grp->save();
 
-        return response()->json($group, 201);
+        return response()->json($grp, 201);
 
     }
 }

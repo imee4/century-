@@ -18,7 +18,7 @@ class BirthdayController extends Controller
         $month = date("m");
         $like = "%-".$month."-" . $day . " %";
         $id = auth()->user()->id;
-
+        Log::info($id);
         $groups = Group::where('admin_id', $id)->get();
 
         $birthdays = [];
@@ -42,5 +42,6 @@ class BirthdayController extends Controller
             return response()->json($birthdays, 201);
 
         }
+
 
 }

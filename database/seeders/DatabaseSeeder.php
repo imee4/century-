@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use \App\Models\UserType;
+use \App\Models\Profile;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Profile::create(
+            [
+                'name' => 'Super Admin',
+                'dob' => now(),
+                'gender' => 'Male',
+                'email' => 'super@demo.com',
+                'phone_number' => '07035660599'
+            ]);
         $this->call([
             UserSeeder::class,
             ProfileSeeder::class,

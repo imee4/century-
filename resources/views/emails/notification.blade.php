@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    Assalamu Alaikum {{ $details['tittle'] }}
+    Assalamu Alaikum {{ $details }}
 </body>
 </html>

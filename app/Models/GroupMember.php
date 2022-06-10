@@ -17,6 +17,11 @@ class GroupMember extends Model
         'is_active',
     ];
 
+    protected $with = [
+        'group',
+        'profile'
+    ];
+
     protected $cast = [
         'is_active'
     ];

@@ -8,9 +8,22 @@ use \Illuminate\Support\Facades\Log;
 use \App\Models\Profile;
 use \App\Models\Group;
 use \App\models\GroupMember;
+use \App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+    function index()
+    {
+        $id = auth()->user()->profile_id;
+        Log::alert('Admin Id; ' . $id);
+        $group = Group::where('admin_id', $id)->first();
+        Log::alert($group->id);
+        $users = GroupMember::where('group_id', $group->id)->get();
+
+        return response()->json($users, 201);
+
+    }
+
     function store(Request $request)
     {
         $rules=$request->validate([
@@ -22,7 +35,7 @@ class UserController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $admin_id = auth()->user()->profile_id;
+        $admin_id = auth()->user()->id;
         Log::info($admin_id);
         $group = Group::findOrFail($admin_id);
         $group_id = $group->id;
@@ -36,22 +49,13 @@ class UserController extends Controller
             'is-active' => true
         ]);
 
-        return response()->json([
-            'profile' =>$profile,
-            'group_member' => $group_member
-            ], 201);
+        return new UserResource($profile);
+        // return response()->json([
+        //     'profile' =>$profile,
+        //     'group_member' => $group_member
+        //     ], 201);
     }
 
-    function index()
-    {
-        $id = auth()->user()->profile_id;
-
-        $group = Group::where('admin_id', $id)->first();
-        $users = GroupMember::where('group_id', $group->id)->get();
-
-        return response()->json($users, 201);
-
-    }
 
     function show(Request $request)
     {

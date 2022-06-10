@@ -18,7 +18,8 @@ class MustBeAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!(auth()->user()?->profile->user_type_id == 1))
+        //Log::info(auth()->user()->user_type_id);
+        if(!(auth()->user()?->user_type_id == 1))
         {
             abort(304);
 

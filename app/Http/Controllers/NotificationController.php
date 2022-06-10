@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Log;
 use Twilio\Rest\Client;
+use AWS;
 use Exception;
 
 class NotificationController extends Controller
@@ -14,6 +15,23 @@ class NotificationController extends Controller
      *
      * @return response()
      */
+
+     function aws()
+     {
+        $phone_number = "+2347035460599";
+        $sms = AWS::createClient('sns');
+
+        $sms->publish([
+            'Message' => 'Hello, This is just a test Message',
+            'PhoneNumber' => $phone_number,
+            'MessageAttributes' => [
+                'AWS.SNS.SMS.SMSType'  => [
+                    'DataType'    => 'String',
+                    'StringValue' => 'Transactional',
+                 ]
+           ],
+        ]);
+     }
     public function sendSmsNotificaition()
     {
         Log::alert("message");
@@ -32,14 +50,14 @@ class NotificationController extends Controller
 
     public function twilioSms()
     {
-        $receiverNumber = "+23409122344792";
+        $receiverNumber = "+2347035460599";
         $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
 
         try {
 
             $account_sid = "AC0339b24353f96b6a59170c4e7cb456a9";
             $auth_token = "16e563a148c5e583852be28c7b127567";
-            $twilio_number = "+2347035460599";
+            $twilio_number = "+15005550006";
 
            // Log::info($account_sid);
 
@@ -48,7 +66,7 @@ class NotificationController extends Controller
                 'from' => $twilio_number,
                 'body' => $message]);
 
-            Log:Info('SMS Sent Successfully.');
+            Log:Info('SMS Sent Successfully.'. $client ." ". $message);
 
         } catch (Exception $e) {
             Log::info("Error: ". $e->getMessage());

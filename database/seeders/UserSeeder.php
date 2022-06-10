@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 ],
                 [
                     'user_type_id' => 2,
-                    'profile_id' => 1,
+                    'profile_id' => 2,
                     'email' => 'admin@demo.com',
                     'password' => bcrypt('password'),
                     'remember_token' => Str::random(10)
