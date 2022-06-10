@@ -42,32 +42,35 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
     // Route::get('/meow', [TestController::class, 'meow'])->middleware('admin');
 
-    Route::get('/admins', [AdminController::class, 'index'])->middleware('admin')->middleware('admin');
-    Route::get('/admin/users-count', [AdminController::class, 'profileCount'])->middleware('admin');
-    Route::get('/admin/admins-count', [AdminController::class, 'count'])->middleware('admin');
-     Route::post('/admin/register', [AdminController::class, 'store'])->middleware('admin');
-    Route::get('/admin/{id}', [AdminController::class, 'show'])->middleware('admin');
-    Route::post('/admin/{id}', [AdminController::class, 'update'])->middleware('admin');
-    Route::post('/admin/createadmin', [AdminController::class, 'createadmin'])->middleware('admin');
-    Route::get('/admin/birthdays', [AdminController::class, 'birthday'])->middleware('admin');
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('admin');
+    Route::get('/admin/users-count', [AdminController::class, 'profileCount']);
+    Route::get('/admin/admins-count', [AdminController::class, 'count']);
+     Route::post('/admin', [AdminController::class, 'store']);
+    Route::get('/admin/{id}', [AdminController::class, 'show']);
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
+    Route::post('/admin/{id}', [AdminController::class, 'update']);
+    Route::post('/admin/createadmin', [AdminController::class, 'createadmin']);
+    Route::get('/admin/birthdays', [AdminController::class, 'birthday']);
 
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    Route::get('/admin/groups', [GroupController::class, 'index'])->middleware('admin');
-    Route::get('/admin/groups-count', [GroupController::class, 'count'])->middleware('admin');
-    Route::post('/admin/store-group', [GroupController::class, 'store'])->middleware('admin');
-    Route::get('/admin/group/{id}', [GroupController::class, 'show'])->middleware('admin');
-    Route::post('/admin/group/{id}', [GroupController::class, 'update'])->middleware('admin');
+    Route::get('/admin/groups', [GroupController::class, 'index']);
+    Route::get('/admin/groups-count', [GroupController::class, 'count']);
+    Route::post('/admin/store-group', [GroupController::class, 'store']);
+    Route::get('/admin/group/{id}', [GroupController::class, 'show']);
+    Route::post('/admin/group/{id}', [GroupController::class, 'update']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
-    Route::get('/users', [UserController::class, 'index']);
-    Route::post('/user/register', [UserController::class, 'store']);
+    Route::get('/user', [UserController::class, 'index']);
+    Route::post('/user', [UserController::class, 'store']);
     Route::get('/user/birthdays', [BirthdayController::class, 'showBirthday']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
     Route::post('/user/{id}', [UserController::class, 'update']);
     Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::get('/user/count', [UserController::class, 'count']);
 
     //Route::get('/test', [TestController::class, 'index']);
 

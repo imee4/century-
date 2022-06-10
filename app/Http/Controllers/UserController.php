@@ -24,6 +24,18 @@ class UserController extends Controller
 
     }
 
+    function count()
+    {
+        $id = auth()->user()->profile_id;
+        Log::alert('Admin Id; ' . $id);
+        $group = Group::where('admin_id', $id)->first();
+        Log::alert($group->id);
+        $users = GroupMember::where('group_id', $group->id)->count();
+
+        return response()->json($users, 201);
+
+    }
+
     function store(Request $request)
     {
         $rules=$request->validate([
@@ -66,6 +78,34 @@ class UserController extends Controller
     }
 
     function update(Request $request)
+    {
+        $rules=$request->validate([
+            'name' => 'required|min:3|max:200',
+            'email' => 'required|email',
+            'phone_number' => 'required|min:11|max:13',
+            'gender' => 'min:4|max:20',
+            'dob' => 'required|min:5',
+        ]);
+
+        $id = $request->profile_id;
+        //$rules['name'] = ucwords($request->name);
+        $prfl = Profile::findOrFail($id);
+        $usr = where('profile_id', $id);
+
+        $profile = $prfl->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+        ]);
+
+
+        return response()->json( $user, 201);
+
+    }
+
+    function destroy(Request $request)
     {
         $id = $request->id;
 

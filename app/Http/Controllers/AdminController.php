@@ -69,7 +69,7 @@ class AdminController extends Controller
             //Log::debug($details);
 
             try {
-                //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+                Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
                 $details = 'Krunal';
             Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
@@ -141,6 +141,40 @@ class AdminController extends Controller
     }
 
     function update(Request $request)
+    {
+        $rules=$request->validate([
+            'name' => 'required|min:3|max:200',
+            'email' => 'required|email',
+            'phone_number' => 'required|min:11|max:13',
+            'gender' => 'min:4|max:20',
+            'dob' => 'required|min:5',
+        ]);
+
+        $id = $request->profile_id;
+        //$rules['name'] = ucwords($request->name);
+        $prfl = Profile::findOrFail($id);
+        $usr = where('profile_id', $id);
+
+        $profile = $prfl->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
+        ]);
+
+        $user = User::where('profile_id', $id)->get();
+        $user->email = $request->email;
+        $user->save();
+
+        return response()->json([
+            'user' => $user,
+            'profile' => $profile
+        ], 201);
+
+    }
+
+    function destroy(Request $request)
     {
         $id = $request->id;
 
